@@ -1,20 +1,53 @@
-// Express Server Setup (server/server.js)
+// Express Server Setup
 const express = require('express');
-const connectDB = require('./config/db.js');
-const bookRoutes = require('./routes/bookRoutes.js');
+const fs = require('fs')
 const path = require('path');
+const exphbs = require('express-handlebars');
+const PORT = process.env.PORT || 3000;
+// const connectDB = require('./config/db.js');
+// const bookRoutes = require('./routes/bookRoutes.js');
 
 const app = express();
+
+//Set up handlebars engine
+app.set('views', path.join(__dirname, 'views'));
+app.engine('hbs', exphbs.engine({ 
+  extname: 'hbs', 
+  defaultLayout: "main",
+  partialsDir: path.join(__dirname, 'partials')
+}));
+app.set('view engine', 'hbs');
+
+//MongoDB
 // connectDB();
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../client')));
 // app.use('/api/books', bookRoutes);
 
-// const PORT = process.env.PORT || 3000;
-const PORT = 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
+//Handlebars templated serving
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/index.html'));
-  });
+  res.render('index');
+});
+
+app.get('/index', (req, res) => {
+  res.render('index');
+});
+
+app.get('/search', (req, res) => {
+  res.render('search', { genres });
+});
+
+app.get('/profile', (req, res) => {
+  res.render('profile');
+});
+
+//404 everything else
+app.get('*', (req, res) => {
+  res.status(404).render('404');
+});
+
+// Read genres from genres.json for search filter dropdown menu
+const genres = JSON.parse(fs.readFileSync(path.join(__dirname, 'genres.json')));
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

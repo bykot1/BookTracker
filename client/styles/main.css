@@ -101,3 +101,19 @@ body {
 .search-button:hover {
   background-color: #357ab7;
 }
+
+/* 404 */
+.error-block {
+  text-align: center;
+}
+
+.error-block h1 {
+  font-size: 136px;
+  margin-top: 50px;
+  margin-bottom: 0;
+}
+
+.error-block h2 {
+  font-size: 32px;
+  margin: 0;
+}
