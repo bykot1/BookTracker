@@ -26,7 +26,8 @@ body {
     text-decoration: none;
     font-weight: bold;
   }
-  
+
+  /* WELCOME */
   .welcome-section {
     text-align: center;
     padding: 50px 20px;
@@ -46,3 +47,57 @@ body {
     color: #666;
   }
   
+/* SEARCH */
+.search-section {
+  text-align: center;
+  padding: 50px 20px;
+  background-color: #ffffff;
+  margin: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-section h2 {
+  font-size: 2em;
+  color: #4a90e2;
+  margin-bottom: 20px;
+}
+
+.search-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.search-input {
+  padding: 10px;
+  font-size: 1em;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 250px;
+  max-width: 100%;
+}
+
+.genre-dropdown {
+  padding: 10px;
+  font-size: 1em;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.search-button {
+  padding: 10px 20px;
+  font-size: 1em;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.search-button:hover {
+  background-color: #357ab7;
+}
