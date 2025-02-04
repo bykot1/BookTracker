@@ -1,0 +1,48 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+  }
+  
+  .navbar {
+    background-color: #333;
+    padding: 1em;
+    text-align: center;
+  }
+  
+  .navbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .navbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .welcome-section {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #ffffff;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .welcome-section h1 {
+    font-size: 2.5em;
+    color: #4a90e2;
+  }
+  
+  .welcome-section p {
+    font-size: 1.2em;
+    color: #666;
+  }
+  
