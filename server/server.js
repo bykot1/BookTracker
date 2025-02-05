@@ -22,7 +22,7 @@ app.set('view engine', 'hbs');
 // connectDB();
 
 app.use(express.json());
-// app.use(express.static(path.join(__dirname, '../client')));
+app.use(express.static(path.join(__dirname, '../client')));
 // app.use('/api/books', bookRoutes);
 
 //Handlebars routes
