@@ -3,8 +3,14 @@ const express = require('express');
 const fs = require('fs')
 const path = require('path');
 const exphbs = require('express-handlebars');
-// const connectDB = require('./config/db.js');
+
+const cookieParser = require('cookie-parser');
+const authRoutes = require('../server/routes/authRoutes');
+const authenticateToken = require('../server/middleware/auth');
+const connectDB = require('./config/db');
+
 // const bookRoutes = require('./routes/bookRoutes.js');
+
 const PORT = process.env.PORT || 3000;
 
 const app = express();
@@ -17,9 +23,6 @@ app.engine('hbs', exphbs.engine({
 }));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-
-//MongoDB
-// connectDB();
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../client')));
@@ -48,16 +51,18 @@ const genres = JSON.parse(fs.readFileSync(path.join(__dirname, 'genres.json')));
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 //User Authentication
-const cookieParser = require('cookie-parser');
-const authRoutes = require('../server/routes/authRoutes');
-const authenticateToken = require('../server/middleware/auth');
 
+connectDB();
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(cookieParser());
-app.use(express.urlencoded({ extended: false }));
 
 app.use('/', authRoutes);
+
 app.get('/profile', authenticateToken, (req, res) => {
-  res.render('profile', { user: req.user });
+  res.send(`Welcome, user ${req.user.id}`);
+  // res.send(`Welcome, ${req.user.id}`);
 });
 
 //404 everything else

@@ -6,3 +6,6 @@ express
 express-handlebars
 cookie-parser
 bcrypt
+mongoose
+jsonwebtoken
+dotenv
