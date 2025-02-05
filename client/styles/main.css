@@ -117,3 +117,39 @@ body {
   font-size: 32px;
   margin: 0;
 }
+
+/* Authentication */
+.auth-buttons {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+}
+
+.auth-buttons a {
+  background-color: #4a90e2;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.auth-buttons a:hover {
+  background-color: #357ab7;
+}
+
+.register-btn {
+  background-color: #6a5acd; /* A soft purple to complement the blue */
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  margin-left: 10px;
+}
+
+.register-btn:hover {
+  background-color: #483d8b;
+}
