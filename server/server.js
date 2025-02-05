@@ -42,12 +42,17 @@ app.get('/profile', (req, res) => {
   res.render('profile');
 });
 
-//404 everything else
-app.get('*', (req, res) => {
-  res.status(404).render('404');
-});
 
 // Read genres from genres.json for search filter dropdown menu
 const genres = JSON.parse(fs.readFileSync(path.join(__dirname, 'genres.json')));
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+//Search routing
+const bookApiRoutes = require('./routes/bookApiRoutes');
+app.use('/api/books', bookApiRoutes);
+
+//404 everything else
+app.get('*', (req, res) => {
+  res.status(404).render('404');
+});

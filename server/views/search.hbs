@@ -1,12 +1,16 @@
 <section class="search-section">
   <h2>Search for Books</h2>
-  <form action="#" method="get" class="search-form">
-    <input type="text" name="query" placeholder="Search books..." class="search-input">
+  <form action="#" method="get" class="search-form" id="search-form">
+    <input type="text" name="query" placeholder="Search books..." class="search-input" required>
     <select name="genre" class="genre-dropdown">
-        {{#each genres}}
-          <option value="{{this}}">{{this}}</option>
-        {{/each}}
-      </select>
+      {{#each genres}}
+        <option value="{{this}}">{{this}}</option>
+      {{/each}}
+    </select>
     <button type="submit" class="search-button">Search</button>
   </form>
 </section>
+
+<div id="results"></div>
+
+<script src="scripts/search.js"></script>
