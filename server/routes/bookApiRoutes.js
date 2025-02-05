@@ -6,12 +6,18 @@ const axios = require('axios');
 router.get('/search', async (req, res) => {
   const { title, author } = req.query;
   try {
-    console.log(
-        "Query\n"
-        + `https://openlibrary.org/search.json?q=${title}&author=${author}`
-    );
-    const response = await axios.get(`https://openlibrary.org/search.json?q=${title}&author=${author}`);
+    if(title.length > 0 && author.length > 0) {
+      var query = `https://openlibrary.org/search.json?q=${title}&author=${author}`;
+    } else if (title.length > 0 && author.length == 0) {
+      var query = `https://openlibrary.org/search.json?q=${title}`;
+    } else if (title.length == 0 && author.length > 0) {
+      var query = `https://openlibrary.org/search.json?author=${author}`;
+    }
+
+    console.log("QUERY - " + query);
+    const response = await axios.get(query);
     res.json(response.data);
+
   } catch (error) {
     res.status(500).json({ message: 'Error fetching data from Open Library' });
   }
