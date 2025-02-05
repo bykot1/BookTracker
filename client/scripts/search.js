@@ -8,11 +8,6 @@ document.getElementById('search-form').addEventListener('submit', async (e) => {
     resultsContainer.innerHTML = 'Loading...';
   
     try {
-        console.log(
-            "Searching"
-            + "\nTitle - " + title
-            + "\nAuthor - " + author
-        );
         console.log("Query\n" 
             + `/api/books/search?title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}`
         );
