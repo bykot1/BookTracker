@@ -2,11 +2,14 @@
   <ul>
     <li><a href="/">Home</a></li>
     <li><a href="/search">Search Books</a></li>
-    <li><a href="/profile">Profile</a></li>
   </ul>
   <div class="auth-buttons">
-    <a href="/login" class="login-btn">Login</a>
-    <a href="/register" class="register-btn">Register</a>
-    <a href="/logout" class="logout-btn" style="display: none;">Logout</a>
+    {{#if username}}
+    <a href="/profile">Profile ({{username}})</a>
+    <a href="/logout">Logout</a>
+  {{else}}
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
+  {{/if}}
   </div>
 </nav>

@@ -63,10 +63,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
+app.use((req, res, next) => {
+  res.locals.username = req.user ? req.user.username : null;
+  next();
+});
+
+
 app.use('/', authRoutes);
 
 app.get('/profile', authenticateToken, (req, res) => {
-  // res.send(`Welcome, user ${req.user.id}`);
+  res.render('profile', { username: req.user.username });
 });
 
 //404 everything else
