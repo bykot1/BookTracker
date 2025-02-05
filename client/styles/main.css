@@ -102,6 +102,20 @@ body {
   background-color: #357ab7;
 }
 
+#results {
+  margin: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.book-card {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
 /* 404 */
 .error-block {
   text-align: center;
