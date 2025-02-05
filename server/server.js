@@ -42,12 +42,25 @@ app.get('/profile', (req, res) => {
   res.render('profile');
 });
 
-//404 everything else
-app.get('*', (req, res) => {
-  res.status(404).render('404');
-});
-
 // Read genres from genres.json for search filter dropdown menu
 const genres = JSON.parse(fs.readFileSync(path.join(__dirname, 'genres.json')));
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+//User Authentication
+const cookieParser = require('cookie-parser');
+const authRoutes = require('../server/routes/authRoutes');
+const authenticateToken = require('../server/middleware/auth');
+
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: false }));
+
+app.use('/', authRoutes);
+app.get('/profile', authenticateToken, (req, res) => {
+  res.render('profile', { user: req.user });
+});
+
+//404 everything else
+app.get('*', (req, res) => {
+  res.status(404).render('404');
+});
