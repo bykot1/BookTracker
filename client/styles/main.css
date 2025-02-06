@@ -27,6 +27,12 @@ body {
     font-weight: bold;
   }
 
+  .navbar a.active {
+    color: #4a90e2;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
   /* WELCOME */
   .welcome-section {
     text-align: center;
@@ -116,6 +122,68 @@ body {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+/* PROFILE */
+.profile-welcome {
+  text-align: center;
+  font-size: 2.5em;
+  color: #4a90e2;
+  margin-bottom: 20px;
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.account-info-box {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.account-info-box h3 {
+  color: #4a90e2;
+  margin-bottom: 15px;
+  font-size: 2em;
+  text-align: center;
+}
+
+.account-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  max-width: 600px;
+  padding: 10px 0;
+  font-size: 1em;
+}
+
+.account-details label {
+  font-weight: bold;
+  color: #333;
+  width: 20%;
+  text-align: left;
+}
+
+.account-details p {
+  margin: 0;
+  color: #555;
+  background-color: #f4f4f9;
+  padding: 10px;
+  border-radius: 4px;
+  width: 80%;
+} 
+
 /* 404 */
 .error-block {
   text-align: center;
@@ -132,7 +200,7 @@ body {
   margin: 0;
 }
 
-/* Authentication */
+/* AUTHENTICATION */
 .auth-buttons {
   position: absolute;
   top: 15px;
