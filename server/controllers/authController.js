@@ -7,7 +7,14 @@ exports.register = async (req, res) => {
     await user.save();
     res.redirect('/login');
   } catch (error) {
-    res.status(400).send('Registration failed.');
+    // console.log(error.message);
+    // if(error.message.includes("MongoServerError: E11000 duplicate key error")) {
+    //   res.render('register', { error: "Username already exists. Please select a new username." });
+    // } else {
+    //   res.render('register', { error });
+    // }
+    
+    res.render('register', { error });
   }
 };
 
@@ -20,7 +27,8 @@ exports.login = async (req, res) => {
     res.cookie('token', token, { httpOnly: true });
     res.redirect('/profile');
   } else {
-    res.status(401).send('Invalid credentials.');
+    // res.status(401).send('Invalid credentials.');
+    res.render('login', { error: 'Invalid username or password. Please try again.' });
   }
 };
 

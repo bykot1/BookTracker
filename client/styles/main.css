@@ -167,3 +167,9 @@ body {
 .register-btn:hover {
   background-color: #483d8b;
 }
+
+/* Errors */
+.error -message {
+  color:red;
+  font-weight: bold;
+}

@@ -1,11 +1,12 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 function authenticateToken(req, res, next) {
   const token = req.cookies.token;
   if (!token) return res.redirect('/login');
 
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) return res.redirect('/login');
+    if (err) return res.sendStatus(403);
     req.user = user;
     next();
   });

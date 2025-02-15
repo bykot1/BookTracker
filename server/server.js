@@ -1,6 +1,5 @@
 // Express Server Setup
 const express = require('express');
-const fs = require('fs')
 const path = require('path');
 const exphbs = require('express-handlebars');
 const cookieParser = require('cookie-parser');
@@ -8,13 +7,35 @@ const cookieParser = require('cookie-parser');
 const authRoutes = require('../server/routes/authRoutes');
 const authenticateToken = require('../server/middleware/auth');
 const connectDB = require('./config/db');
+const bookApiRoutes = require('./routes/bookApiRoutes');
+
 
 const PORT = process.env.PORT || 3000;
 
 const app = express();
 
-// Read genres from genres.json for search filter dropdown menu
-const genres = JSON.parse(fs.readFileSync(path.join(__dirname, 'genres.json')));
+//User Authentication
+connectDB();
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser());
+
+app.use((req, res, next) => {
+  const token = req.cookies.token;
+  if (token) {
+    const jwt = require('jsonwebtoken');
+    try {
+      const user = jwt.verify(token, process.env.JWT_SECRET);
+      res.locals.username = user.username;  // Pass username globally
+    } catch (err) {
+      res.locals.username = null;
+    }
+  } else {
+    res.locals.username = null;
+  }
+  next();
+});
 
 //Set up handlebars engine
 app.engine('hbs', exphbs.engine({ 
@@ -27,8 +48,8 @@ app.set('view engine', 'hbs');
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../client')));
-// app.use('/api/books', bookRoutes);
 
+//Start server listening and handle errors
 const server = app.listen(PORT, () => 
   console.log(`Server running on port ${PORT}`)
 );
@@ -37,42 +58,28 @@ process.on("unhandledRejection", err => {
   server.close(() => process.exit(1))
 });
 
-//User Authentication
-connectDB();
-
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(cookieParser());
-
-app.use((req, res, next) => {
-  res.locals.username = req.user ? req.user.username : null;
-  next();
+//Base routes
+app.get('/', authenticateToken, (req, res) => {
+  res.render('index', { username: req.user.username });
 });
 
-//Handlebars routes
-app.get('/', (req, res) => {
-  res.render('index');
+app.get('/index', authenticateToken, (req, res) => {
+  res.render('index', { username: req.user.username });
 });
 
-app.get('/index', (req, res) => {
-  res.render('index');
+app.get('/search', authenticateToken, (req, res) => {
+  res.render('search', { username: req.user.username });
 });
-
-app.get('/search', (req, res) => {
-  res.render('search', { genres });
-});
-
-app.use('/', authRoutes);
 
 app.get('/profile', authenticateToken, (req, res) => {
   res.render('profile', { username: req.user.username });
 });
 
-//Search routing
-const bookApiRoutes = require('./routes/bookApiRoutes');
+//Special routes
 app.use('/api/books', bookApiRoutes);
+app.use('/', authRoutes);
 
 //404 everything else
-app.get('*', (req, res) => {
-  res.status(404).render('404');
+app.get('*', authenticateToken, (req, res) => {
+  res.status(404).render('404', { username: req.user.username });
 });
