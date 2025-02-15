@@ -49,9 +49,6 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '../client')));
 
 //Start server listening and handle errors
-app.use('/api/books', bookApiRoutes);
-app.use('/', authRoutes);
-
 const server = app.listen(PORT, () => 
   console.log(`Server running on port ${PORT}`)
 );
@@ -76,6 +73,10 @@ app.get('/search', authenticateToken, (req, res) => {
 app.get('/profile', authenticateToken, (req, res) => {
   res.render('profile', { username: req.user.username });
 });
+
+//Special routes
+app.use('/api/books', bookApiRoutes);
+app.use('/', authRoutes);
 
 //404 everything else
 app.get('*', authenticateToken, (req, res) => {
